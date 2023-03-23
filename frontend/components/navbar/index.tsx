@@ -12,9 +12,10 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { redirect } from 'next/dist/server/api-utils';
+import { Route } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -57,6 +58,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function NavbarComponent() {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -81,6 +83,10 @@ export default function NavbarComponent() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleToSignin = () => {
+    router.push('/signin');
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -99,7 +105,7 @@ export default function NavbarComponent() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Mi Cuenta</MenuItem>
+      <MenuItem onClick={handleToSignin}>Ingresar</MenuItem>
     </Menu>
   );
 

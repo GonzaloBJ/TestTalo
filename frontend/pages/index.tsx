@@ -7,7 +7,7 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
     return (
     <div >
-        <HeadComponent title={'Learn Nextjs'} metaData={'Learn nextjs by tutorials'} />
+        <HeadComponent title={'talo'} metaData={'talo'} />
         <NavbarComponent/>
         <main className={styles.main} >
         </main> 
