@@ -6,23 +6,49 @@ import { taloTestService } from "../services/taloTest.service";
 export class taloTestController {
     constructor(private readonly taloTestService: taloTestService) { }
 
-    @Post()
+    @Get('/catalog')
+    async getProductCatalog(@Res() response) {
+        try {
+            const catalog = await this.taloTestService.getProductCatalog();
+            return response.status(HttpStatus.OK).json({
+                catalog
+            })
+        } catch (error) {
+            return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                error
+            })
+        }
+    }
+
+    @Post('user/create')
     async createUser(@Res() response, @Body() user: user) {
-        const newUser = await this.taloTestService.createOrUpdateUser(user);
-        return response.status(HttpStatus.CREATED).json({
-            newUser
-        })
+        try {
+            const newUser = await this.taloTestService.createOrUpdateUser(user);
+            return response.status(HttpStatus.CREATED).json({
+                newUser
+            })
+        } catch (error) {
+            return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                error
+            })
+        }
     }
 
-    @Get()
+    @Get('/user/all')
     async readAllUser(@Res() response) {
-        const users = await this.taloTestService.readAllUser();
-        return response.status(HttpStatus.OK).json({
-            users
-        })
+        try {
+            const users = await this.taloTestService.readAllUser();
+            return response.status(HttpStatus.OK).json({
+                users
+            })
+        } catch (error) {
+            return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                error
+            })
+        }
     }
 
-    @Get('/:id')
+    @Get('/user/:id')
     async readByUserId(@Res() response, @Param('id') userId) {
         try {
             const user = await this.taloTestService.readByUserId(userId);
@@ -36,12 +62,18 @@ export class taloTestController {
         }
     }
 
-    @Post('/delete')
+    @Post('/user/delete')
     async deleteByUserId(@Res() response, @Body() userId: number) {
-        const deletedUser = await this.taloTestService.deleteByUserId(userId);
-        return response.status(HttpStatus.OK).json({
-            deletedUser
-        })
+        try {
+            const deletedUser = await this.taloTestService.deleteByUserId(userId);
+            return response.status(HttpStatus.OK).json({
+                deletedUser
+            })
+        } catch (error) {
+            return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                error
+            })
+        }
     }
 
 }

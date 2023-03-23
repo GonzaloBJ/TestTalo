@@ -17,7 +17,8 @@ import { taloTestModule } from './taloTest.module';
       entities: [user],
       synchronize: true,
       dropSchema: true
-    }), taloTestModule
+    }), 
+    taloTestModule
   ],
   controllers: [AppController],
   providers: [AppService],
